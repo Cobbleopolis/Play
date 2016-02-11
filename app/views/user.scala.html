@@ -1,0 +1,7 @@
+@(user: User)
+
+@layout("Welcome User") {
+    <h1>Welcome @user.username!</h1>
+    <p>@user.email</p>
+    <p>@user.accountType</p>
+}

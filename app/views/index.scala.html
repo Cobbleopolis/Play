@@ -1,0 +1,14 @@
+@(message: String, arrayList: Array[String])
+
+@genList(list: Array[String]) = {
+    <ul>
+        @list.map { item =>
+            <li>@item</li>
+        }
+    </ul>
+}
+
+@layout("Index") {
+    <h1>@message</h1>
+    @genList(arrayList)
+}
