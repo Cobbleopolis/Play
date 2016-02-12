@@ -1,3 +1,5 @@
+import PlayKeys._
+
 name := "Play"
 
 version := "1.0"
