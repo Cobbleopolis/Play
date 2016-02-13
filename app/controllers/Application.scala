@@ -11,7 +11,7 @@ object Application extends Controller {
 
 	def index = Action {
 		val arrayBuffer: ArrayBuffer[String] = ArrayBuffer[String]()
-		for (i <- 1 to 4)
+		for (i <- 1 to 5)
 			arrayBuffer += "Hello " + i
 		Ok(views.html.index("Hello World!", arrayBuffer.toArray))
 	}
