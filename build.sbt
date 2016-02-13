@@ -14,7 +14,8 @@ libraryDependencies ++= Seq(
 	ws,
 	"mysql" % "mysql-connector-java" % "5.1.18",
 	"com.typesafe.play" %% "anorm" % "2.4.0",
-	"ws.securesocial" % "securesocial_2.11" % "3.0-M4"
+	"com.github.t3hnar" % "scala-bcrypt_2.11" % "2.5",
+	"com.typesafe.play" %% "play-mailer" % "3.0.1"
 )
 
 unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/test")
