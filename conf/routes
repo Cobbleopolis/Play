@@ -13,5 +13,6 @@ GET        /login               controllers.Application.login
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
 
-GET       /api/auth             controllers.Api.auth
+GET        /api/auth            controllers.Api.auth
+POST       /api/submitPrompt    controllers.Api.submitPrompt
     

@@ -6,5 +6,25 @@ function main() {
 }
 
 function submitPrompt() {
-    console.log($("#promptContent").val())
+    var data = {
+        "user": user.email,
+        "content": $("#promptContent").val()
+    };
+    console.log(JSON.stringify(data));
+    $.ajax({
+        url: "/api/submitPrompt",
+        type: "POST",
+        data: JSON.stringify(data),
+        contentType: "application/json",
+        dataType: 'json',
+        success: function(response) {
+            console.log(response);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            console.log(jqXHR);
+            console.log(textStatus);
+            console.log(errorThrown);
+        },
+        processData: true
+    });
 }

@@ -17,4 +17,6 @@ object DBReference {
 
 	val userExists = SQL("select 1 from users where users.email = {email}")
 
+	val submitPrompt = SQL("insert into prompts (user, content) values ({user}, {content});")
+
 }
