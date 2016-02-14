@@ -6,6 +6,8 @@
 GET        /                    controllers.Application.index
 # User pages
 GET        /user/*user          controllers.Application.user(user)
+#Submit pages
+GET        /submit/*user        controllers.Application.submit(user)
 # Login page
 GET        /login               controllers.Application.login
 # Map static resources from the /public folder to the /assets URL path
