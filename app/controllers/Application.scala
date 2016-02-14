@@ -1,10 +1,12 @@
 package controllers
 
-import models.{DBUtil, User}
+import models.User
+import play.api.Play
 import play.api.Play.current
 import play.api.db.DB
 import play.api.libs.ws.WS
 import play.api.mvc._
+import reference.{DBReference, AuthReference}
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -19,12 +21,12 @@ object Application extends Controller {
 
 	def user(username: String) = Action {
 		DB.withConnection(implicit conn => {
-			val user: User = DBUtil.getUser.on("user" -> username).as(DBUtil.getUserParser.single)
+			val user: User = DBReference.getUser.on("user" -> username).as(DBReference.getUserParser.single)
 			Ok(views.html.user(user))
 		})
 	}
 
 	def login = Action {
-		Ok(views.html.login())
+		Ok(views.html.login(AuthReference.googleClientId))
 	}
 }

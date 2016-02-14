@@ -1,4 +1,4 @@
-@(message: String, arrayList: Array[String])
+@(message: String, arrayList: Array[String], clientID: String)
 
 @genList(list: Array[String]) = {
     <ul>
@@ -8,7 +8,7 @@
     </ul>
 }
 
-@layout("Index"){
+@layout("Index", clientID){
 
 } {
     <h1>@message</h1>
