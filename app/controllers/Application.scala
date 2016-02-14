@@ -1,12 +1,13 @@
 package controllers
 
-import models.User
+import models.{Prompt, User}
 import play.api.Play
 import play.api.Play.current
 import play.api.db.DB
 import play.api.libs.ws.WS
 import play.api.mvc._
 import reference.{DBReference, AuthReference}
+import util.DBUtil
 
 import scala.collection.mutable.ArrayBuffer
 
@@ -20,9 +21,10 @@ object Application extends Controller {
 	}
 
 	def user(username: String) = Action {
+		val user: User = DBUtil.getUserFromUsername(username)
 		DB.withConnection(implicit conn => {
-			val user: User = DBReference.getUser.on("user" -> username).as(DBReference.getUserParser.single)
-			Ok(views.html.user(user))
+			val prompts: List[Prompt] = DBReference.getAllPromptsForUser.on("user" -> user.email).as(DBReference.getPromptParser*)
+			Ok(views.html.user(user, prompts))
 		})
 	}
 
@@ -32,7 +34,7 @@ object Application extends Controller {
 
 	def submit(username: String) = Action {
 		DB.withConnection(implicit conn => {
-			val user: User = DBReference.getUser.on("user" -> username).as(DBReference.getUserParser.single)
+			val user: User = DBReference.getUserFromUsername.on("user" -> username).as(DBReference.getUserParser.single)
 			Ok(views.html.submit(user))
 		})
 	}
