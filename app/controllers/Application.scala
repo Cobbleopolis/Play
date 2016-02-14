@@ -33,7 +33,7 @@ object Application extends Controller {
 	def submit(username: String) = Action {
 		DB.withConnection(implicit conn => {
 			val user: User = DBReference.getUser.on("user" -> username).as(DBReference.getUserParser.single)
-			Ok(views.html.user(user))
+			Ok(views.html.submit(user))
 		})
 	}
 }
