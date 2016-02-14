@@ -14,10 +14,10 @@ object Api extends Controller {
 
 	def auth = Action.async { request =>
 		AuthReference.googleAuth.withQueryString("id_token" -> request.getQueryString("id").get).get().map{ response =>
-			if ((response.json \ "aud").toString == AuthReference.googleClientId)
+//			if ((response.json \ "aud").toString == AuthReference.googleClientId)
 				Ok(JsObject(Seq("redirect" -> JsString("/user/" + request.getQueryString("name").get))))
-			else
-				Ok(JsObject(Seq("redirect" -> JsString("/login"))))
+//			else
+//				Ok(JsObject(Seq("redirect" -> JsString("/"))))
 		}
 	}
 
