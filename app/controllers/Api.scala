@@ -21,14 +21,10 @@ object Api extends Controller {
 
 	def submitPrompt = Action { request =>
 		DB.withConnection(implicit conn => {
-			var user: String = ""
-			var content: String = ""
 			request.body.asJson.foreach(json => {
-				user = (json \ "user").as[String]
-				content = (json \ "content").as[String]
-				DBReference.submitPrompt.on("user" -> user, "content" -> content).executeInsert()
+				DBReference.submitPrompt.on("user" -> (json \ "user").as[String], "content" -> (json \ "content").as[String]).executeInsert()
 			})
-			Ok(JsObject(Seq("data" -> JsString(user + " | " + content))))
+			Ok(JsObject(Seq("message" -> JsString("Prompt successfully submitted!"))))
 		})
 	}
 

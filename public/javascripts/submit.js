@@ -10,7 +10,7 @@ function submitPrompt() {
         "user": user.email,
         "content": $("#promptContent").val()
     };
-    console.log(JSON.stringify(data));
+    //console.log(JSON.stringify(data));
     $.ajax({
         url: "/api/submitPrompt",
         type: "POST",
@@ -18,7 +18,7 @@ function submitPrompt() {
         contentType: "application/json",
         dataType: 'json',
         success: function(response) {
-            alert("Prompt successfully submitted!")
+            alert(response.message)
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
