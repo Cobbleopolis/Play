@@ -17,7 +17,8 @@ function submitPrompt() {
         data: JSON.stringify(data),
         contentType: "application/json",
         dataType: 'json',
-        success: function() {
+        success: function(response) {
+            alert("Prompt successfully submitted!")
         },
         error: function(jqXHR, textStatus, errorThrown) {
             console.log(jqXHR);
