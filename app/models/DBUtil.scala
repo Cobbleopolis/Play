@@ -1,7 +1,7 @@
-package controllers
+package models
 
-import anorm._
 import anorm.SqlParser._
+import anorm._
 
 object DBUtil {
 

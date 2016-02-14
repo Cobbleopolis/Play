@@ -14,7 +14,6 @@ libraryDependencies ++= Seq(
 	ws,
 	"mysql" % "mysql-connector-java" % "5.1.18",
 	"com.typesafe.play" %% "anorm" % "2.4.0",
-	"com.github.t3hnar" % "scala-bcrypt_2.11" % "2.5",
 	"com.typesafe.play" %% "play-mailer" % "3.0.1"
 )
 

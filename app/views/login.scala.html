@@ -1,0 +1,46 @@
+@()
+
+@layout("Login") {
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
+    <meta name="google-signin-client_id" content="927943888119-1s1t6p1f0ctvieudbo780q0hcb4sca2t.apps.googleusercontent.com">
+    <script>
+        function onSignIn(googleUser) {
+            var profile = googleUser.getBasicProfile();
+            console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+            console.log('Name: ' + profile.getName());
+            console.log('Image URL: ' + profile.getImageUrl());
+            console.log('Email: ' + profile.getEmail());
+            console.log(JSON.stringify(profile));
+            $.ajax({
+                url: "/api/auth",
+                type: "GET",
+                data: {
+                    'id': profile.getId(),
+                    'name': profile.getName(),
+                    'imageURL': profile.getImageUrl(),
+                    'email': profile.getEmail()
+                },
+                contentType: "application/json",
+                dataType: "json",
+                success: function(response) {
+                    if(response.redirect)
+                        window.location.href = response.redirect;
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.log(jqXHR);
+                }
+            })
+        }
+    </script>
+} {
+    <div class="g-signin2" data-onsuccess="onSignIn"></div>
+    <a href="#" onclick="signOut();">Sign out</a>
+    <script>
+        function signOut() {
+            var auth2 = gapi.auth2.getAuthInstance();
+            auth2.signOut().then(function () {
+                console.log('User signed out.');
+            });
+        }
+</script>
+}

@@ -1,8 +1,9 @@
 package controllers
 
-import anorm.{Row, SQL}
+import models.{DBUtil, User}
 import play.api.Play.current
 import play.api.db.DB
+import play.api.libs.ws.WS
 import play.api.mvc._
 
 import scala.collection.mutable.ArrayBuffer
@@ -21,5 +22,9 @@ object Application extends Controller {
 			val user: User = DBUtil.getUser.on("user" -> username).as(DBUtil.getUserParser.single)
 			Ok(views.html.user(user))
 		})
+	}
+
+	def login = Action {
+		Ok(views.html.login())
 	}
 }
