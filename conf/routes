@@ -9,7 +9,9 @@ GET        /user/*user          controllers.Application.user(user)
 #Submit pages
 GET        /submit/*user        controllers.Application.submit(user)
 # Login page
-GET        /login               controllers.Application.login
+GET        /login               controllers.Auth.login
+
+POST       /submitLogin         controllers.Auth.submitLogin
 # Map static resources from the /public folder to the /assets URL path
 GET        /assets/*file        controllers.Assets.at(path="/public", file)
 

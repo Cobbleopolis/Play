@@ -28,10 +28,6 @@ object Application extends Controller {
 		})
 	}
 
-	def login = Action {
-		Ok(views.html.login())
-	}
-
 	def submit(username: String) = Action {
 		DB.withConnection(implicit conn => {
 			val user: User = DBReference.getUserFromUsername.on("user" -> username).as(DBReference.getUserParser.single)
