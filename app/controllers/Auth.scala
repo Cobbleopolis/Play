@@ -1,6 +1,6 @@
 package controllers
 
-import models.{Login, LoginData}
+import models.Login
 import play.api.mvc._
 
 object Auth extends Controller {
@@ -10,7 +10,15 @@ object Auth extends Controller {
 	}
 
 	def submitLogin = Action(implicit request => {
-		val loginData: LoginData = Login.form.bindFromRequest.get
-		Redirect(routes.Application.user(loginData.username))
+		Login.form.bindFromRequest.fold(
+			formWithErrors => {
+				// binding failure, you retrieve the form containing errors:
+				BadRequest(views.html.login(formWithErrors))
+			},
+			userData => {
+				/* binding success, you get the actual value. */
+				Redirect(routes.Application.user(userData.username))
+			}
+		)
 	})
 }

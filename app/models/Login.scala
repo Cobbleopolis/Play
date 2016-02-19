@@ -6,8 +6,8 @@ import play.api.data.Forms._
 object Login {
 	val form = Form(
 		mapping(
-			"Username" -> text,
-			"Password" -> text
+			"Username" -> nonEmptyText,
+			"Password" -> nonEmptyText
 		)(LoginData.apply)(LoginData.unapply)
 	)
 }
