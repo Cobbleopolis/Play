@@ -2,19 +2,26 @@
 
 @layout("Submit a prompt") {
     <script src="@routes.Assets.at("javascripts/submit.js")" type="text/javascript"></script>
-    <script>
-        var user = {
-            username: "@user.username",
-            email: "@user.email"
-        }
-    </script>
+    @if(user != null) {
+        <script>
+            var user = {
+                username: "@user.username",
+                email: "@user.email"
+            }
+        </script>
+    }
 } {
-    <form id="submitPrompt">
-        <label for="promptContent">Prompt:</label>
-        <br>
-        <textarea id="promptContent" rows="4" cols="50"></textarea>
-        <br>
-        <input id="submitPromptButton" type="submit" value="Submit Prompt">
-    </form>
+    @if(user != null) {
+        <form id="submitPrompt">
+            <label for="promptContent">Prompt:</label>
+            <br>
+            <textarea id="promptContent" rows="4" cols="50"></textarea>
+            <br>
+            <input id="submitPromptButton" type="submit" value="Submit Prompt">
+        </form>
+    } else {
+        <h1>User not found</h1>
+    }
+
 }
 

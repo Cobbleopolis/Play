@@ -9,14 +9,14 @@ object DBUtil {
 
 	def getUserFromUsername(username: String): User = {
 		DB.withConnection(implicit conn => {
-			DBReference.getUserFromUsername.on("user" -> username).as(DBReference.getUserParser.single)
-		})
+			DBReference.getUserFromUsername.on("user" -> username).as(DBReference.getUserParser.singleOpt)
+		}.orNull)
 	}
 
 	def getUserFromEmail(email: String): User = {
 		DB.withConnection(implicit conn => {
-			DBReference.getUserFromUsername.on("email" -> email).as(DBReference.getUserParser.single)
-		})
+			DBReference.getUserFromUsername.on("email" -> email).as(DBReference.getUserParser.singleOpt)
+		}.orNull)
 	}
 
 }

@@ -23,14 +23,18 @@ object Application extends Controller {
 	def user(username: String) = Action {
 		val user: User = DBUtil.getUserFromUsername(username)
 		DB.withConnection(implicit conn => {
-			val prompts: List[Prompt] = DBReference.getAllPromptsForUser.on("user" -> user.email).as(DBReference.getPromptParser*)
+			val prompts: List[Prompt] =
+                if(user != null)
+                    DBReference.getAllPromptsForUser.on("user" -> user.email).as(DBReference.getPromptParser.*)
+                else
+                    List[Prompt]()
 			Ok(views.html.user(user, prompts))
 		})
 	}
 
 	def submit(username: String) = Action {
 		DB.withConnection(implicit conn => {
-			val user: User = DBReference.getUserFromUsername.on("user" -> username).as(DBReference.getUserParser.single)
+			val user: User = DBUtil.getUserFromUsername(username)
 			Ok(views.html.submit(user))
 		})
 	}

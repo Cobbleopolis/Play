@@ -12,13 +12,17 @@
     @layout("Welcome User") {
         <script src="@routes.Assets.at("javascripts/user.js")" type="text/javascript"></script>
     } {
-        <h1>Welcome @user.username!</h1>
-        <h3>User Info</h3>
-        <p>Email: @user.email</p>
-        <h3>User Prompts</h3>
-        <ul>
+        @if(user == null) {
+            <h1>User not found</h1>
+        } else {
+            <h1>Welcome @user.username!</h1>
+            <h3>User Info</h3>
+            <p>Email: @user.email</p>
+            <h3>User Prompts</h3>
+            <ul>
             @prompts.map { prompt =>
                 @renderPrompt(prompt)
             }
-        </ul>
+            </ul>
+        }
     }
