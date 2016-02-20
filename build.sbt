@@ -12,9 +12,9 @@ libraryDependencies ++= Seq(
 	jdbc,
 	cache,
 	ws,
+    anorm,
 	"mysql" % "mysql-connector-java" % "5.1.18",
-	"com.typesafe.play" %% "anorm" % "2.4.0",
-	"com.typesafe.play" %% "play-mailer" % "3.0.1"
+    "com.typesafe.play" %% "play-mailer" % "2.4.1"
 )
 
 unmanagedResourceDirectories in Test <+= baseDirectory(_ / "target/web/public/test")
