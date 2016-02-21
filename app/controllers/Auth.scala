@@ -17,7 +17,7 @@ object Auth extends Controller {
 			},
 			userData => {
 				/* binding success, you get the actual value. */
-				Redirect(routes.Application.user(userData.username))
+				Redirect(routes.Application.user).withSession(Security.username -> userData._1)
 			}
 		)
 	})

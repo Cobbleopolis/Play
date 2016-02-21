@@ -5,11 +5,17 @@ import play.api.data.Forms._
 
 object Login {
 	val form = Form(
-		mapping(
+		tuple(
 			"Username" -> nonEmptyText,
 			"Password" -> nonEmptyText
-		)(LoginData.apply)(LoginData.unapply)
-	)
+		) verifying ("Invalid email or password", result => result match {
+			case (email, password) => check(email, password)
+		}
+	))
+
+	def check(username: String, password: String): Boolean = {
+		username == "cobbleopolis" && password == "loganjt"
+	}
 }
 
 case class LoginData(username: String, password: String)

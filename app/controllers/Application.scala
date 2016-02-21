@@ -1,17 +1,15 @@
 package controllers
 
-import models.{Prompt, User}
-import play.api.Play
+import auth.Secured
+import models.User
 import play.api.Play.current
 import play.api.db.DB
-import play.api.libs.ws.WS
 import play.api.mvc._
-import reference.{DBReference, AuthReference}
 import util.DBUtil
 
 import scala.collection.mutable.ArrayBuffer
 
-object Application extends Controller {
+object Application extends Controller with Secured {
 
 	def index = Action {
 		val arrayBuffer: ArrayBuffer[String] = ArrayBuffer[String]()
@@ -20,16 +18,21 @@ object Application extends Controller {
 		Ok(views.html.index("Hello World!", arrayBuffer.toArray))
 	}
 
-	def user(username: String) = Action {
-		val user: User = DBUtil.getUserFromUsername(username)
-		DB.withConnection(implicit conn => {
-			val prompts: List[Prompt] =
-                if(user != null)
-                    DBReference.getAllPromptsForUser.on("user" -> user.email).as(DBReference.getPromptParser.*)
-                else
-                    List[Prompt]()
-			Ok(views.html.user(user, prompts))
-		})
+	//	def user(username: String) = Action {
+	//		val user: User = DBUtil.getUserFromUsername(username)
+	//		DB.withConnection(implicit conn => {
+	//			val prompts: List[Prompt] =
+	//                if(user != null)
+	//                    DBReference.getAllPromptsForUser.on("user" -> user.email).as(DBReference.getPromptParser.*)
+	//                else
+	//                    List[Prompt]()
+	//			Ok(views.html.user(user, prompts))
+	//		})
+	//	}
+
+	def user = withUser { user => implicit request =>
+		val prompts = DBUtil.getPromptsForUser(user)
+		Ok(views.html.user(user, prompts))
 	}
 
 	def submit(username: String) = Action {
