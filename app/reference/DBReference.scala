@@ -11,8 +11,11 @@ object DBReference {
 	val getUserParser = for {
 		username <- str("username")
 		email <- str("email")
+		password <- str("password")
+		salt <- str("salt")
 		accountType <- int("accountType")
-	} yield new User(username, email, accountType)
+		submissionsOpen <- bool("submissionsOpen")
+	} yield new User(username, email, password, salt, accountType, submissionsOpen)
 
 	val userExists = SQL("select 1 from users where users.email = {email}")
 

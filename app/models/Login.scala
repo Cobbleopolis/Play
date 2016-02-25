@@ -1,7 +1,9 @@
 package models
 
+import org.mindrot.jbcrypt.BCrypt
 import play.api.data.Form
 import play.api.data.Forms._
+import util.DBUtil
 
 object Login {
 	val form = Form(
@@ -13,7 +15,11 @@ object Login {
 	))
 
 	def check(loginData: LoginData): Boolean = {
-		loginData.username == "cobbleopolis" && loginData.password == "loganjt"
+		val user: User = DBUtil.getUserFromUsername(loginData.username)
+		if (user == null)
+			false
+		else
+			BCrypt.checkpw(loginData.password, user.password)
 	}
 }
 
