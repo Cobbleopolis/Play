@@ -1,7 +1,8 @@
 package controllers
 
-import models.Login
+import models.{Register, Login}
 import play.api.mvc._
+import util.DBUtil
 
 object Auth extends Controller {
 
@@ -17,7 +18,23 @@ object Auth extends Controller {
 			},
 			userData => {
 				/* binding success, you get the actual value. */
-				Redirect(routes.Application.user).withSession(Security.username -> userData._1)
+				Redirect(routes.Application.user(userData.username)).withSession(Security.username -> userData.username)
+			}
+		)
+	})
+
+	def register = Action {
+		Ok(views.html.register(Register.form))
+	}
+
+	def submitRegister = Action(implicit request => {
+		Register.form.bindFromRequest().fold(
+			formWithErrors => {
+				BadRequest(views.html.register(formWithErrors))
+			},
+			registerData => {
+				DBUtil.registerUser(registerData.getNewUserData)
+				Redirect(routes.Application.user(registerData.username)).withSession(Security.username -> registerData.username)
 			}
 		)
 	})

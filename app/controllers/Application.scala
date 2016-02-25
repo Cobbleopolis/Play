@@ -30,7 +30,7 @@ object Application extends Controller with Secured {
 	//		})
 	//	}
 
-	def user = withUser { user => implicit request =>
+	def user(username: String) = withUser { user => implicit request =>
 		val prompts = DBUtil.getPromptsForUser(user)
 		Ok(views.html.user(user, prompts))
 	}

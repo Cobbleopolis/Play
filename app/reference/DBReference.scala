@@ -14,8 +14,6 @@ object DBReference {
 		accountType <- int("accountType")
 	} yield new User(username, email, accountType)
 
-	val insertUser = SQL("insert into users (email, username, accountType) values ({email}, {username}, {accountType})")
-
 	val userExists = SQL("select 1 from users where users.email = {email}")
 
 	val submitPrompt = SQL("insert into prompts (user, content) values ({user}, {content});")
@@ -24,5 +22,12 @@ object DBReference {
 	val getPromptParser = for {
 		content <- str("content")
 	} yield new Prompt(content)
+
+	val insertUser = SQL(
+		"""
+		  insert into users (username, email, password, salt, accountType, submissionsOpen)
+		  values ({username}, {email}, {password}, {salt}, {accountType}, {submissionsOpen})
+		"""
+	)
 
 }
