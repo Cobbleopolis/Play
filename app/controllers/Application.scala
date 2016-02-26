@@ -41,4 +41,8 @@ object Application extends Controller with Secured {
 			Ok(views.html.submit(user))
 		})
 	}
+
+	def userTest = withUser { user => implicit request =>
+		Ok(views.html.userTest(user.username))
+	}
 }

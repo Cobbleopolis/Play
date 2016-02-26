@@ -38,4 +38,8 @@ object Auth extends Controller {
 			}
 		)
 	})
+
+	def logout = Action {
+		Redirect(routes.Auth.login()).withNewSession
+	}
 }
