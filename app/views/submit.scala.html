@@ -1,6 +1,6 @@
-@(header: Html)(user: User)
+@(banner: Html)(user: User)
 
-@layout("Submit a prompt")(header) {
+@layout("Submit a prompt")(banner) {
     <script src="@routes.Assets.at("javascripts/submit.js")" type="text/javascript"></script>
     @if(user != null) {
         <script>

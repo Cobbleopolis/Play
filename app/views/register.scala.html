@@ -1,7 +1,7 @@
-@(header: Html)(registerForm: Form[RegisterData])
+@(banner: Html)(registerForm: Form[RegisterData])
 
 @import util.FormHelpers._
-@layout("Register")(header) {
+@layout("Register")(banner) {
 
 } {
     @if(registerForm.hasErrors) {
