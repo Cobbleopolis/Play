@@ -1,6 +1,6 @@
-@(loginForm: Form[LoginData])
+@(header: Html)(loginForm: Form[LoginData])
 @import util.FormHelpers._
-@layout("Login") {
+@layout("Login")(header) {
 
 } {
     @if(loginForm.hasGlobalErrors) {

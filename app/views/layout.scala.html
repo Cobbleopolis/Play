@@ -1,4 +1,4 @@
-@(title: String)(head: Html)(content: Html)
+@(title: String)(banner: Html)(head: Html)(content: Html)
 <!DOCTYPE html>
 
 <html>
@@ -13,9 +13,7 @@
         @head
     </head>
     <body>
-        <div id="window-header">
-            <a id="signOut" href="/logout" onclick="signOut();">Sign out</a>
-        </div>
+        @banner
         @content
     </body>
 </html>

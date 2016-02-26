@@ -11,11 +11,12 @@ import scala.collection.mutable.ArrayBuffer
 
 object Application extends Controller with Secured {
 
-	def index = Action {
+	def index = Action { implicit request =>
+		val header = views.html.header(request.session)
 		val arrayBuffer: ArrayBuffer[String] = ArrayBuffer[String]()
 		for (i <- 1 to 5)
 			arrayBuffer += "Hello " + i
-		Ok(views.html.index("Hello World!", arrayBuffer.toArray))
+		Ok(views.html.index(header)("Hello World!", arrayBuffer.toArray))
 	}
 
 	//	def user(username: String) = Action {
@@ -31,18 +32,21 @@ object Application extends Controller with Secured {
 	//	}
 
 	def user(username: String) = withUser { user => implicit request =>
+		val header = views.html.header(request.session)
 		val prompts = DBUtil.getPromptsForUser(user)
-		Ok(views.html.user(user, prompts))
+		Ok(views.html.user(header)(user, prompts))
 	}
 
-	def submit(username: String) = Action {
+	def submit(username: String) = Action { implicit request =>
+		val header = views.html.header(request.session)
 		DB.withConnection(implicit conn => {
 			val user: User = DBUtil.getUserFromUsername(username)
-			Ok(views.html.submit(user))
+			Ok(views.html.submit(header)(user))
 		})
 	}
 
 	def userTest = withUser { user => implicit request =>
-		Ok(views.html.userTest(user.username))
+		val header = views.html.header(request.session)
+		Ok(views.html.userTest(header)(user.username))
 	}
 }

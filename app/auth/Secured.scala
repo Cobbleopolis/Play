@@ -27,4 +27,15 @@ trait Secured {
 		else
 			onUnauthorized(request)
 	}
+
+	def loginAware(loggedIn: => User => Request[AnyContent] => Result,
+	               notLoggedIn: => Request[AnyContent] => Result) = {
+		withAuth { username => implicit request =>
+			val user: User = DBUtil.getUserFromUsername(username)
+			if (user != null)
+				loggedIn(user)(request)
+			else
+				notLoggedIn(request)
+		}
+	}
 }

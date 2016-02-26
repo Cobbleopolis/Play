@@ -1,0 +1,6 @@
+@(implicit session: Session)
+
+<div id="window-header">
+    <a id="signOut" href="/logout">Sign out</a>
+    <p>@session.get(Security.username)</p>
+</div>

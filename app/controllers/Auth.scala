@@ -6,15 +6,17 @@ import util.DBUtil
 
 object Auth extends Controller {
 
-	def login = Action {
-		Ok(views.html.login(Login.form))
+	def login = Action { implicit request =>
+		val header = views.html.header(request.session)
+		Ok(views.html.login(header)(Login.form))
 	}
 
 	def submitLogin = Action(implicit request => {
+		val header = views.html.header(request.session)
 		Login.form.bindFromRequest.fold(
 			formWithErrors => {
 				// binding failure, you retrieve the form containing errors:
-				BadRequest(views.html.login(formWithErrors))
+				BadRequest(views.html.login(header)(formWithErrors))
 			},
 			userData => {
 				/* binding success, you get the actual value. */
@@ -23,14 +25,16 @@ object Auth extends Controller {
 		)
 	})
 
-	def register = Action {
-		Ok(views.html.register(Register.form))
+	def register = Action { implicit request =>
+		val header = views.html.header(request.session)
+		Ok(views.html.register(header)(Register.form))
 	}
 
 	def submitRegister = Action(implicit request => {
+		val header = views.html.header(request.session)
 		Register.form.bindFromRequest().fold(
 			formWithErrors => {
-				BadRequest(views.html.register(formWithErrors))
+				BadRequest(views.html.register(header)(formWithErrors))
 			},
 			registerData => {
 				DBUtil.registerUser(registerData.getNewUserData)
