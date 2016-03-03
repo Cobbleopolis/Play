@@ -56,8 +56,8 @@ case class RegisterData(username: String, password: String, confirmPassword: Str
 	def getNewUserData: NewUserData = {
 		val salt = BCrypt.gensalt()
 		val pass = BCrypt.hashpw(password, salt)
-		new NewUserData(username, email, pass, salt, 1, true)
+		new NewUserData(username, email, pass, 1, true)
 	}
 }
 
-class NewUserData(val username: String, val email: String, val password: String, val salt: String, val accountType: Int, val submissionsOpen: Boolean)
+class NewUserData(val username: String, val email: String, val password: String, val accountType: Int, val submissionsOpen: Boolean)

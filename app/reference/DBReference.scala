@@ -12,10 +12,9 @@ object DBReference {
 		username <- str("username")
 		email <- str("email")
 		password <- str("password")
-		salt <- str("salt")
 		accountType <- int("accountType")
 		submissionsOpen <- bool("submissionsOpen")
-	} yield new User(username, email, password, salt, accountType, submissionsOpen)
+	} yield new User(username, email, password, accountType, submissionsOpen)
 
 	val userExists = SQL("select 1 from users where users.email = {email}")
 
@@ -28,8 +27,8 @@ object DBReference {
 
 	val insertUser = SQL(
 		"""
-		  insert into users (username, email, password, salt, accountType, submissionsOpen)
-		  values ({username}, {email}, {password}, {salt}, {accountType}, {submissionsOpen})
+		  insert into users (username, email, password, accountType, submissionsOpen)
+		  values ({username}, {email}, {password}, {accountType}, {submissionsOpen})
 		"""
 	)
 

@@ -31,7 +31,6 @@ object DBUtil {
 				"username" -> newUserData.username, 
 				"email" -> newUserData.email,
 				"password" -> newUserData.password,
-				"salt" -> newUserData.salt,
 				"accountType" -> newUserData.accountType,
 				"submissionsOpen" -> newUserData.submissionsOpen
 			).executeInsert()
