@@ -1,5 +1,6 @@
 package util
 
+import controllers.Application._
 import models.{NewUserData, RegisterData, Prompt, User}
 import play.api.Play.current
 import play.api.db.DB
@@ -33,6 +34,15 @@ object DBUtil {
 				"password" -> newUserData.password,
 				"accountType" -> newUserData.accountType,
 				"submissionsOpen" -> newUserData.submissionsOpen
+			).executeInsert()
+		})
+	}
+
+	def submitPrompt(user: User, promptMessage: String): Unit = {
+		DB.withConnection(implicit conn => {
+			DBReference.submitPrompt.on(
+				"user" -> user.username,
+				"content" -> promptMessage
 			).executeInsert()
 		})
 	}

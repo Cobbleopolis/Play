@@ -1,24 +1,14 @@
-@(banner: Html)(user: User)
+@(banner: Html)(user: User, submitForm: Form[Prompt])
+@import util.FormHelpers._
 
 @layout("Submit a prompt")(banner) {
-    <script src="@routes.Assets.at("javascripts/submit.js")" type="text/javascript"></script>
-    @if(user != null) {
-        <script>
-            var user = {
-                username: "@user.username",
-                email: "@user.email"
-            }
-        </script>
-    }
+
 } {
     @if(user != null) {
-        <form id="submitPrompt">
-            <label for="promptContent">Prompt:</label>
-            <br>
-            <textarea id="promptContent" rows="4" cols="50"></textarea>
-            <br>
-            <input id="submitPromptButton" type="submit" value="Submit Prompt">
-        </form>
+        @helper.form(action = routes.Application.submitPrompt(user.username)) {
+            @helper.textarea(submitForm("Prompt"), args = 'rows -> 4, 'cols -> 50)
+            <button type="submit">Submit Prompt</button>
+        }
     } else {
         <h1>User not found</h1>
     }

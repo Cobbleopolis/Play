@@ -8,6 +8,7 @@ GET        /                    controllers.Application.index
 GET        /user/*username      controllers.Application.user(username)
 #Submit pages
 GET        /submit/*user        controllers.Application.submit(user)
+POST        /submit/*user       controllers.Application.submitPrompt(user)
 # Login page
 GET        /login               controllers.Auth.login
 POST       /login               controllers.Auth.submitLogin
