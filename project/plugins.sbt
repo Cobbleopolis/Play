@@ -8,6 +8,8 @@ addSbtPlugin("com.typesafe.play" % "sbt-plugin" % "2.3.8")
 
 addSbtPlugin("default" % "sbt-sass" % "0.1.9")
 
+addSbtPlugin("com.typesafe.sbt" % "sbt-coffeescript" % "1.0.0")
+
 //addSbtPlugin("com.eed3si9n" % "sbt-assembly" % "0.14.2")
 
 //addSbtPlugin("com.typesafe.sbt" % "sbt-native-packager" % "0.7.4")
