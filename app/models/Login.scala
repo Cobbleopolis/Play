@@ -1,5 +1,6 @@
 package models
 
+import models.user.User
 import org.mindrot.jbcrypt.BCrypt
 import play.api.data.Form
 import play.api.data.Forms._

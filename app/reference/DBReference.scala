@@ -2,7 +2,8 @@ package reference
 
 import anorm.SqlParser._
 import anorm._
-import models.{Prompt, User}
+import models.Prompt
+import models.user.{UserOptions, User}
 
 object DBReference {
 
@@ -13,8 +14,7 @@ object DBReference {
 		email <- str("email")
 		password <- str("password")
 		accountType <- int("accountType")
-		submissionsOpen <- bool("submissionsOpen")
-	} yield new User(username, email, password, accountType, submissionsOpen)
+	} yield new User(username, email, password, accountType)
 
 	val userExists = SQL("select 1 from users where users.email = {email}")
 
@@ -27,9 +27,15 @@ object DBReference {
 
 	val insertUser = SQL(
 		"""
-		  insert into users (username, email, password, accountType, submissionsOpen)
-		  values ({username}, {email}, {password}, {accountType}, {submissionsOpen})
+		  insert into users (username, email, password, accountType)
+		  values ({username}, {email}, {password}, {accountType})
 		"""
 	)
+
+	val getUserOptions = SQL("select * from userOptions where username = {username}")
+
+	val getUserOptionsParser = for {
+		submissionsOpen <- bool("submissionsOpen")
+	} yield new UserOptions(submissionsOpen)
 
 }

@@ -1,7 +1,8 @@
 package util
 
 import controllers.Application._
-import models.{NewUserData, RegisterData, Prompt, User}
+import models.user.{UserOptions, User}
+import models.{NewUserData, RegisterData, Prompt}
 import play.api.Play.current
 import play.api.db.DB
 import reference.DBReference
@@ -32,8 +33,7 @@ object DBUtil {
 				"username" -> newUserData.username, 
 				"email" -> newUserData.email,
 				"password" -> newUserData.password,
-				"accountType" -> newUserData.accountType,
-				"submissionsOpen" -> newUserData.submissionsOpen
+				"accountType" -> newUserData.accountType
 			).executeInsert()
 		})
 	}
@@ -45,6 +45,12 @@ object DBUtil {
 				"content" -> promptMessage
 			).executeInsert()
 		})
+	}
+
+	def getUserOptions(user: User): UserOptions ={
+		DB.withConnection(implicit conn => {
+			DBReference.getUserOptions.on("username" -> user.username).as(DBReference.getUserOptionsParser.singleOpt)
+		}.orNull)
 	}
 
 }

@@ -1,6 +1,6 @@
 package auth
 
-import models.User
+import models.user.User
 import play.api.mvc._
 import util.DBUtil
 
