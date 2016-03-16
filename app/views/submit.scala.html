@@ -6,9 +6,13 @@
 
 } {
     @if(user != null) {
-        @helper.form(action = routes.Application.submitPrompt(user.username)) {
-            @helper.textarea(submitForm("Prompt"), args = 'rows -> 4, 'cols -> 50)
-            <button type="submit">Submit Prompt</button>
+        @if(user.getUserOptions.submissionsOpen) {
+            @helper.form(action = routes.Application.submitPrompt(user.username)) {
+                @helper.textarea(submitForm("Prompt"), args = 'rows -> 4, 'cols -> 50)
+                <button type="submit">Submit Prompt</button>
+            }
+        } else {
+            <h1>@user.username is not taking prompts right now.</h1>
         }
     } else {
         <h1>User not found</h1>

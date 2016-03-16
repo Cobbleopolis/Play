@@ -1,7 +1,8 @@
 @(implicit session: Session)
 
 <div id="window-header">
-    <span id="title">Prompt</span>
+    <img id="logo" src="@routes.Assets.at("images/logo.png")">
+    <span id="title">Promptiosaurus</span>
     <div id="userSection">
         @if(session.get(Security.username).isEmpty) {
             <a id="signOut" href="/login">Log in</a> or <a id="registerLink" href="/register">Register</a>
