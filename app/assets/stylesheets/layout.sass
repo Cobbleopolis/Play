@@ -32,6 +32,23 @@ body
     a
         color: material-color(red, 200)
 
+#content
+    width: 100%
+    text-align: center
+
+#content *
+    text-align: initial
+
+.card
+    +dropShadow(1)
+    border-radius: 0.125rem
+    max-width: 50%
+    padding: 1rem
+    display: inline-block !important
+    +transition(box-shadow 0.1s linear)
+    &:active
+        +dropShadow(2)
+
 button
     background-color: material-color(blue, 500)
     border: none
